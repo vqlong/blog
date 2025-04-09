@@ -1,0 +1,40 @@
+<ul class="list-group my-3" id="list-courses"></ul>
+<div class="test-handlebars border border-success rounded-2 p-2 mb-3">
+    <h3>{{#with firstCourse}}Id is <i>{{id}}</i> and name is <i>{{name}}</i>{{/with}}</h3>
+    <div>
+        {{#if isShow}}
+            <h3>{{showValue}}</h3>
+        {{/if}}
+    </div>
+
+</div>
+{{!-- <div>
+    <video width="384" height="288" class="d-block mx-auto my-3" controls autoplay muted>
+        <source src="/static/video/sample.mp4" />
+    </video>
+</div> --}}
+<div class="courses-container">
+    <div class="row">
+        {{#each listCourses}}
+            <div class="col-md-4 course-wrapper" data-id="{{this.id}}">
+                <div class="card mb-5 position-relative">
+                    <a href="/courses/{{encodeURIComponent this.slug}}">
+                        <img src="{{this.thumb}}" class="card-img-top" alt="..." />
+                    </a>
+                    <div class="card-body">
+                        <a href="/courses/{{encodeURIComponent this.slug}}">
+                            <h5 class="card-title">{{this.name}}</h5>
+                        </a>
+                        <p class="card-text">{{this.description}}</p>
+                        <a
+                            href="/courses/{{encodeURIComponent this.slug}}"
+                            class="btn btn-primary"
+                        >Vào xem</a>
+                    </div>
+                    <span class="position-absolute top-0 start-0 text-light ms-1">#
+                        {{@index}} - {{this.accountId}}</span>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

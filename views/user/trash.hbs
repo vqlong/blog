@@ -1,0 +1,72 @@
+<h2 class="text-center">Thùng rác khóa học của tôi</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">
+              Tên khóa học
+              {{{getBtnSort 'name' sorting '/user/trash'}}}            
+            </th>
+            <th scope="col">
+              Miêu tả
+              {{{getBtnSort 'description' sorting '/user/trash'}}}
+            </th>
+            <th scope="col" colspan="2">
+              Ngày xóa
+              {{{getBtnSort 'deletedAt' sorting '/user/trash'}}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each courses}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.deletedAt}}</td>
+                <td><a href="#" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#dialogRestoreCourse">Khôi phục</a></td>
+            </tr>
+
+        {{else}}
+            <tr>
+              <td colspan="4" class="text-center">Thùng rác trống. 
+                <a href="/user/courses">Về khóa học của bạn.</a>
+              </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<form id="formRestoreCourse" method="POST"></form>
+
+<div class="modal fade" tabindex="-1" id="dialogRestoreCourse">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Blog app</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có thực sự muốn khôi phục khóa học này?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="btnRestoreCourse">Khôi phục</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('dialogRestoreCourse').addEventListener('show.bs.modal', event =>
+  {
+    let button = event.relatedTarget;
+
+    let id = button.getAttribute('data-id');
+
+    let form = document.getElementById('formRestoreCourse');
+    form.action = `/user/restore/${id}/?_method=PATCH`;
+
+    document.getElementById('btnRestoreCourse').onclick = e => form.submit();
+  });
+</script>

@@ -1,0 +1,73 @@
+<h2 class="text-center">Khóa học của tôi</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">
+              Tên khóa học
+              {{{getBtnSort 'name' sorting '/user/courses'}}}            
+            </th>
+            <th scope="col">
+              Miêu tả
+              {{{getBtnSort 'description' sorting '/user/courses'}}}
+            </th>
+            <th scope="col" colspan="3">
+              Ngày tạo
+              {{{getBtnSort 'created' sorting '/user/courses'}}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each courses}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.created}}</td>
+                <td><a href="/user/update/{{this._id}}">Sửa</a></td>
+                <td><a href="#" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#dialogDeleteCourse">Xóa</a></td>
+            </tr>
+
+        {{else}}
+            <tr>
+              <td colspan="4" class="text-center">Bạn chưa đăng khóa học nào. 
+                <a href="/user/insert">Đăng khóa học ngay.</a>
+              </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<form id="formDeleteCourse" method="POST"></form>
+
+<div class="modal fade" tabindex="-1" id="dialogDeleteCourse">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Blog app</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có thực sự muốn xóa khóa học này?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnDeleteCourse">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('dialogDeleteCourse').addEventListener('show.bs.modal', event =>
+  {
+    let button = event.relatedTarget;
+
+    let id = button.getAttribute('data-id');
+
+    let form = document.getElementById('formDeleteCourse');
+    form.action = `/user/delete/${id}/?_method=DELETE`;
+
+    document.getElementById('btnDeleteCourse').onclick = e => form.submit();
+  });
+</script>

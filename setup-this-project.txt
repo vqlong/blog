@@ -1,0 +1,28 @@
+npm init
+Enter Enter ...
+
+npm install express
+tạo file index.js (code lấy từ expressjs.com)
+node index.js
+
+npm install nodemon --save-dev
+package.json => "script" => "start": "nodemon --inspect index.js",
+npm start
+ctrl + c để tắt
+
+npm install morgan --save-dev
+
+npm install express-handlebars
+
+npm install sass --save-dev
+package.json => "script" => "sass": "sass --watch views/scss/styles.scss views/courses-app/assets/css/styles.css",
+npm run sass
+
+npm install cors
+app.use(cors())
+
+npm install mongoose
+
+npm install method-override
+
+npm install cookie-parser

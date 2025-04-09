@@ -1,0 +1,46 @@
+.bg-light, .form-course {
+  background-color: #f8f9fa;
+}
+
+.form-course {
+  border: 1px solid #5cb85c;
+  border-radius: 12px;
+  padding: 12px;
+}
+.form-course .form-group {
+  margin-bottom: 12px;
+}
+.form-course .form-group .form-label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.courses-container .card .card-body {
+  display: flex;
+  flex-direction: column;
+}
+.courses-container .card .card-body .card-text {
+  line-height: 1.3rem;
+  height: 2.6rem;
+  overflow: hidden;
+}
+.courses-container .card .card-body .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.navbar {
+  padding: 0;
+}
+.navbar .navbar-nav .nav-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.navbar .navbar-nav .nav-item-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/*# sourceMappingURL=styles.css.map */

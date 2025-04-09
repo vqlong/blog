@@ -1,0 +1,69 @@
+@use 'color';
+
+@mixin rounded($radius: 12px){
+    border-radius: $radius;
+}
+
+.bg-light{
+    background-color: color.$light;
+}
+
+.form-course{
+    border: 1px solid color.$success;
+    @include rounded;
+    padding: 12px;
+    @extend .bg-light;
+
+    .form-group{
+        margin-bottom: 12px;
+
+        .form-label{
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+    }
+}
+
+.courses-container{
+    .card{
+        // min-height: 320px;
+
+        // .card-img-top{
+        //     height: 100px;
+        // }
+
+        .card-body{
+            display: flex;
+            flex-direction: column;
+
+            .card-text{
+                line-height: 1.3rem;
+                height: 2.6rem;
+                overflow: hidden;
+            }
+
+            .btn{
+                align-self: flex-start;
+                margin-top: auto;
+            }
+        }
+    }
+}
+
+.navbar{
+    padding: 0;
+    .navbar-nav{
+        .nav-link{
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .nav-item-avatar{
+           width: 30px;
+           height: 30px;
+           border-radius: 50%;
+           object-fit: cover;
+       }
+    } 
+}
+    
