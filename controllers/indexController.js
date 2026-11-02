@@ -1,12 +1,13 @@
-const Course = require("../models/course.js");
-const Session = require("../models/session.js");
-const Account = require("../models/account.js");
-const baseController = require("./baseController.js");
-const cookieParser = require("cookie-parser");
+import Course from "../models/course.js";
+import Session from "../models/session.js";
+import Account from "../models/account.js";
+import BaseController from "./BaseController.js";
+import cookieParser from "cookie-parser";
 
 const indexController = {};
 
-indexController.index = async (req, res) => {
+indexController.index = async (req, res) =>
+{
     // try
     // {
     //     const courses = await Course.find({});
@@ -22,7 +23,7 @@ indexController.index = async (req, res) => {
 
     // console.log('req.cookies', req.cookies);
 
-    const account = await baseController.getAccountLogin(req.cookies.sessionId);
+    const account = await BaseController.getAccountLogin(req.cookies.sessionId);
     // console.log('account', account);
     // thằng lean() này sẽ tạo object bình thường của js, không theo cái schema nữa
     Course.find({ deleted: false })
@@ -44,4 +45,4 @@ indexController.index = async (req, res) => {
     // res.sendFile('./views/courses-app/index.html', { root: __dirname });
 };
 
-module.exports = indexController;
+export default indexController;

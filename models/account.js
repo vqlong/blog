@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
@@ -10,4 +10,4 @@ const accountSchema = new Schema({
 // thêm timestamps nó sẽ tự sinh ra createdAt và updatedAt
 const Account = mongoose.model('accounts', accountSchema);
 
-module.exports = Account;
+export default Account;

@@ -1,7 +1,7 @@
-const Session = require("../models/session.js");
-const Account = require("../models/account.js");
+import Session from "../models/session.js";
+import Account from "../models/account.js";
 
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 const Sha256 = (inputString) =>
 {
@@ -47,4 +47,4 @@ loginController.login = (req, res) =>
 
 }
 
-module.exports = loginController;
+export default loginController;

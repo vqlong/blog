@@ -21,10 +21,11 @@ package.json => "script" => "sass": "sass --watch views/scss/styles.scss views/c
 npm run sass
 
 npm install cors
-app.use(cors())
 
 npm install mongoose
 
 npm install method-override
 
 npm install cookie-parser
+
+npm install dotenv

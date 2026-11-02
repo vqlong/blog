@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
@@ -9,4 +9,4 @@ const counterSchema = new Schema({
 
 const Counter = mongoose.model('counters', counterSchema);
 
-module.exports = Counter;
+export default Counter;

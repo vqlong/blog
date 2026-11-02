@@ -1,12 +1,13 @@
-const express = require('express');
-const morgan = require('morgan');
-const { engine } = require('express-handlebars');
-// const sass = require('sass');
-const baseRoute = require('./routes/baseRoute.js');
-const db = require('./db/config.js');
-const cors = require('cors');
-const methodOverride = require('method-override');
-const cookieParser = require('cookie-parser');
+import 'dotenv/config'; 
+import express from 'express';
+import morgan from 'morgan';
+import { engine } from 'express-handlebars';
+// import sass from 'sass';
+import BaseRouter from './routes/BaseRouter.js';
+import db from './db/config.js';
+import cors from 'cors';
+import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
 // const readline = require('readline');
 // const { setTimeout } = require('timers/promises');
 // const rl = readline.createInterface({
@@ -14,9 +15,19 @@ const cookieParser = require('cookie-parser');
 //     output: process.stdout,
 // });
 const app = express();
-const port = 3000;
+const port = process.env.PORT ?? 3000; 
 
-db.connect();
+// Centralized Error Handling (Quản lý lỗi tập trung)
+// Để app.js tự quyết định vòng đời của app
+try
+{
+    await db.connect();
+}
+catch (err)
+{
+    console.error(err);
+    process.exit(1);
+}
 
 // compile scss to css
 // const styles = sass.compile('./views/scss/styles.scss');
@@ -48,18 +59,13 @@ app.use(express.json());
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-baseRoute.route(app);
+BaseRouter.route(app);
 
 const server = app.listen(port, "127.0.0.1", () =>
 {
-    console.log(`Blog app is listening on port ${port}...`);
-	console.log(`Blog app is listening on ${server.address().address}:${server.address().port}...`);
+	console.log(`Blog app is listening on ${server.address().address}:${server.address().port}`);
 
-    // if (err) console.log(err);
-
-    // console.log(process.cwd());
-    // console.log(__dirname);
-    // console.log(__filename);
+    // console.log("Current working directory:",process.cwd());
 
     // setTimeout(2000).then(() => rl.question(`# app >>> `, cmd =>
     // {
@@ -83,16 +89,19 @@ server.on("error", err =>
     {
         console.error(err);
     }
+    
+    db.close();
 });
 
+// Khi ctrl+c
 process.on('SIGINT', () =>
 {
-    console.log('Process interrupted!');
+    console.log('Process interrupted.');
     db.close();
     server.close(err =>
     {
-        console.log('Blog app closed!');
-        if (err) console.log(err);
+        console.log('Blog app closed.');
+        if (err) console.error(err);
     });
 });
     

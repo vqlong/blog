@@ -1,34 +1,23 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const dbConfig = {};
-
-const localdb = 'mongodb://127.0.0.1:27017/blogdb';
-const clouddb = 'mongodb+srv://vqlong:long931991@cluster0.emeom.mongodb.net/blogdb'
-
-dbConfig.connect = async () =>
+export default class DatabaseConfig
 {
-    try
+    
+    static async connect()
     {
-        await mongoose.connect(clouddb);
-        console.log('Connect database successfully!');
-    }
-    catch (err)
-    {
-        console.error(err);
-    }
-};
+        const uri = process.env.MONGODB_URI; 
+        if (!uri) throw new Error("Chưa cấu hình MONGODB_URI!");
 
-dbConfig.close = async () =>
-    {
-        try
-        {
-            await mongoose.disconnect();
-            console.log('Disconnect database successfully!');
-        }
-        catch (err)
-        {
-            console.error(err);
-        }
+        const conn = await mongoose.connect(uri);
+        console.log(`Connect database ${conn.connection.name} successfully at ${conn.connection.host}:${conn.connection.port}`);
+        
     };
+    
+    static async close()
+    {
+        await mongoose.disconnect();
+        console.log('Disconnect database successfully!');
+    };
+    
+}
 
-module.exports = dbConfig;

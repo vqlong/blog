@@ -1,7 +1,7 @@
-const Course = require("../models/course.js");
-const Counter = require('../models/counter.js');
-const Session = require("../models/session.js");
-const baseController = require("./baseController.js");
+import Course from "../models/course.js";
+import Counter from '../models/counter.js';
+import Session from "../models/session.js";
+import BaseController from "./BaseController.js";
 
 const getId = async (counterId = 'courseId') => {
     let counter = await Counter.findOneAndUpdate(
@@ -50,7 +50,7 @@ const helpers = { sum: (a, b) => a + b, getBtnSort };
 
 userController.renderUser = (req, res) =>
 {
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(account =>
         {
             if (account) res.render('user/user', { account });
@@ -65,7 +65,7 @@ userController.renderCourses = (req, res) =>
     // res.json(res.locals._sort);
     // return;
 
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(account =>
         {
             if (account)
@@ -74,7 +74,7 @@ userController.renderCourses = (req, res) =>
                     .lean()
                     .sort(req.query.hasOwnProperty('_sort') ? {[req.query.column]: req.query.type} : {})
                     .then(courses => res.render('user/courses', { account, courses, helpers }))
-                    .catch(err => baseController.handleError(res, err));
+                    .catch(err => BaseController.handleError(res, err));
             }
             else
             {
@@ -86,7 +86,7 @@ userController.renderCourses = (req, res) =>
 
 userController.renderInsert = (req, res) =>
 {
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(account =>
         {
             if (account) res.render('user/insert', { account });
@@ -96,7 +96,7 @@ userController.renderInsert = (req, res) =>
 
 userController.insertCourse = async (req, res) =>
 {
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(async account =>
         {
             if (account)
@@ -107,7 +107,7 @@ userController.insertCourse = async (req, res) =>
                 course.save()
                     .then(savedCourse => console.log(savedCourse))
                     .then(() => res.redirect('/user/courses'))
-                    .catch(err => baseController.handleError(res, err));
+                    .catch(err => BaseController.handleError(res, err));
             }
             else
             {
@@ -120,7 +120,7 @@ userController.insertCourse = async (req, res) =>
 userController.renderUpdate = (req, res) =>
 {
     // console.log(req.params.id);
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(account =>
         {
             if (account)
@@ -140,7 +140,7 @@ userController.renderUpdate = (req, res) =>
 userController.updateCourse = (req, res) =>
 {
     // console.log(req.params.id);
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(account =>
         {
             if (account)
@@ -159,7 +159,7 @@ userController.updateCourse = (req, res) =>
 userController.deleteCourse = (req, res) =>
 {
     // console.log(req.params.id);
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(account =>
         {
             if (account)
@@ -180,7 +180,7 @@ userController.deleteCourse = (req, res) =>
 
 userController.renderTrash = (req, res) =>
 {
-    baseController.getAccountLogin(req.cookies.sessionId)
+    BaseController.getAccountLogin(req.cookies.sessionId)
         .then(account =>
         {
             if (account)
@@ -189,7 +189,7 @@ userController.renderTrash = (req, res) =>
                     .lean()
                     .sort(req.query.hasOwnProperty('_sort') ? { [req.query.column]: req.query.type } : {})
                     .then(courses => res.render('user/trash', { account, courses, helpers }))
-                    .catch(err => baseController.handleError(res, err));
+                    .catch(err => BaseController.handleError(res, err));
             }
             else
             {
@@ -202,7 +202,7 @@ userController.renderTrash = (req, res) =>
 userController.restoreCourse = (req, res) =>
     {
         // console.log(req.params.id);
-        baseController.getAccountLogin(req.cookies.sessionId)
+        BaseController.getAccountLogin(req.cookies.sessionId)
             .then(account =>
             {
                 if (account)
@@ -242,4 +242,4 @@ userController.logout = (req, res) =>
     }
 };
 
-module.exports = userController;
+export default userController;

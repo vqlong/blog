@@ -1,15 +1,16 @@
-const mongoose = require("mongoose");
-const Course = require("../models/course.js");
-const Counter = require('../models/counter.js');
-const baseController = require("./baseController.js");
+import mongoose from "mongoose";
+import Course from "../models/course.js";
+import Counter from '../models/counter.js';
+import BaseController from './BaseController.js';
 
-const getId = async (counterId = 'courseId') => {
+const getId = async (counterId = 'courseId') =>
+{
     let counter = await Counter.findOneAndUpdate(
         { id: counterId },
         { $inc: { value: 1 } },
         { new: true }
     );
-	return counter.value;
+    return counter.value;
 }
 
 const courseController = {};
@@ -40,7 +41,7 @@ courseController.getCourses = async (req, res) =>
 // '/courses/:slug'
 courseController.renderCourse = async (req, res) =>
 {
-    const account = await baseController.getAccountLogin(req.cookies.sessionId);
+    const account = await BaseController.getAccountLogin(req.cookies.sessionId);
 
     Course.findOne({ slug: req.params.slug, deleted: false })
         .lean()
@@ -63,4 +64,4 @@ courseController.searchCourses = async (req, res) =>
     }
 };
 
-module.exports = courseController;
+export default courseController;

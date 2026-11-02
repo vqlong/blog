@@ -1,8 +1,8 @@
-const Session = require("../models/session.js");
-const Account = require("../models/account.js");
-const baseController = require("./baseController.js");
+import Session from "../models/session.js";
+import Account from "../models/account.js";
+import BaseController from "./BaseController.js";
 
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 const Sha256 = (inputString) =>
 {
@@ -36,10 +36,10 @@ registerController.register = (req, res) =>
                 acc.save()
                     .then(saved => console.log('new account', saved))
                     .then(() => res.redirect('/'))
-                    .catch(err => baseController.handleError(res, err));
+                    .catch(err => BaseController.handleError(res, err));
             }
         });
 
 }
 
-module.exports = registerController;
+export default registerController;

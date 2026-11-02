@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
@@ -19,4 +19,4 @@ const courseSchema = new Schema({
 // thêm unique nó sẽ tự sinh ra 1 index unique ở database
 const Course = mongoose.model('courses', courseSchema);
 
-module.exports = Course;
+export default Course;

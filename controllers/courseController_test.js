@@ -1,6 +1,6 @@
 // controller này chỉ để test trên file courses-db.json
 
-const fs = require('node:fs');
+import fs from 'node:fs';
 
 const courses = [];
 const getCoursesMaxId = () => courses.reduce((max, course) => course.id > max.id ? course : max, {id: 0}).id;
@@ -78,4 +78,4 @@ courseController.updateCourse = (req, res) =>
     courseController.saveCourses();
 };
 
-module.exports = courseController;
+export default courseController;
