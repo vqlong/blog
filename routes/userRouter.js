@@ -13,7 +13,7 @@ userRouter.use((req, res, next) =>
         type: 'default'
     };
 
-    if (req.query.hasOwnProperty('_sort'))
+    if ('_sort' in req.query)
     {
         Object.assign(res.locals.sorting, {
             enabled: true,
