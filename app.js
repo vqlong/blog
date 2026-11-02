@@ -50,10 +50,12 @@ app.use(express.urlencoded({ extended: true }));
 
 baseRoute.route(app);
 
-const server = app.listen(port, err =>
+const server = app.listen(port, "127.0.0.1", () =>
 {
-    console.log(`Blog app listening on port ${port}...`);
-    if (err) console.log(err);
+    console.log(`Blog app is listening on port ${port}...`);
+	console.log(`Blog app is listening on ${server.address().address}:${server.address().port}...`);
+
+    // if (err) console.log(err);
 
     // console.log(process.cwd());
     // console.log(__dirname);
@@ -69,6 +71,18 @@ const server = app.listen(port, err =>
     //     }
     // }));
     
+});
+
+server.on("error", err =>
+{
+    if (err.code === "EADDRINUSE")
+    {
+        console.error(`Port ${port} is already in use.`);
+    }
+    else
+    {
+        console.error(err);
+    }
 });
 
 process.on('SIGINT', () =>

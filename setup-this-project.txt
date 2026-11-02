@@ -6,6 +6,8 @@ tạo file index.js (code lấy từ expressjs.com)
 node index.js
 
 npm install nodemon --save-dev
+nodemon soi sự thay đổi các file và restart server
+nodemon cũng tạo 1 nút biểu tượng  trong devtool
 package.json => "script" => "start": "nodemon --inspect index.js",
 npm start
 ctrl + c để tắt
