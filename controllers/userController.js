@@ -187,7 +187,7 @@ userController.renderTrash = (req, res) =>
             {
                 Course.find({ accountId: account._id, deleted: true })
                     .lean()
-                    .sort(req.query.hasOwnProperty('_sort') ? { [req.query.column]: req.query.type } : {})
+                    .sort('_sort' in req.query ? { [req.query.column]: req.query.type } : {})
                     .then(courses => res.render('user/trash', { account, courses, helpers }))
                     .catch(err => BaseController.handleError(res, err));
             }
