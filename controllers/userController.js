@@ -72,7 +72,7 @@ userController.renderCourses = (req, res) =>
             {
                 Course.find({ accountId: account._id, deleted: false })
                     .lean()
-                    .sort(req.query.hasOwnProperty('_sort') ? {[req.query.column]: req.query.type} : {})
+                    .sort('_sort' in req.query ? {[req.query.column]: req.query.type} : {})
                     .then(courses => res.render('user/courses', { account, courses, helpers }))
                     .catch(err => BaseController.handleError(res, err));
             }
