@@ -29,3 +29,28 @@ npm install method-override
 npm install cookie-parser
 
 npm install dotenv
+-------------------------------------------------------------------------------------------
+
+Setup Vercel
+
+Bước 1: Tạo file cấu hình vercel.json trong thư mục gốc của dự án:
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.js"
+    }
+  ]
+}
+
+Bước 2: Mở file app.js ra và thêm dòng cuối cùng export default app;
+
+Bước 3: Thêm biến môi trường trên Vercel Dashboard
+
