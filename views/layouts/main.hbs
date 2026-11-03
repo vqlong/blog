@@ -9,14 +9,21 @@
     <link rel="stylesheet" href="/static/font/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet" href="/static/css/styles.css">
     <title>Blog courses</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
-    <div class="app">
+    <div class="app flex-grow-1 d-flex flex-column">
         <header class="sticky-top bg-success text-light">
             {{>header}}
         </header>
 
-        <main class="container py-3 bg-warningz">
+        <main class="container py-3 flex-grow-1">
             <h1 class="text-center bg-infoz">Bạn học tôi trả tiền</h1>
 
             {{{body}}}
